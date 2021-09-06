@@ -8,11 +8,28 @@ export default {
   component: StyleguideFieldUsageCustom,
 } as ComponentMeta<typeof StyleguideFieldUsageCustom>;
 
-const Template: ComponentStory<typeof StyleguideFieldUsageCustom> = (args) => <StyleguideFieldUsageCustom {...args} />;
+const Template: ComponentStory<typeof StyleguideFieldUsageCustom> = (args) => (
+  <StyleguideFieldUsageCustom {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   params: {
     name: 'Styleguide-FieldUsage-Custom',
+  },
+  rendering: {
+    uid: '{00000000-0000-0000-0000-000000000000}',
+    componentName: 'Styleguide-FieldUsage-Custom',
+  },
+  fields: {
+    heading: {
+      value: 'Heading',
+    },
+    description: {
+      value: 'Description',
+    },
+    customIntField: {
+      value: '10000000',
+    },
   },
 };

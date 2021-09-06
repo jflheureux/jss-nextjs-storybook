@@ -15,8 +15,16 @@ Default.args = {
   params: {
     name: 'ContentBlock',
   },
+  rendering: {
+    uid: '{00000000-0000-0000-0000-000000000000}',
+    componentName: 'ContentBlock',
+  },
   fields: {
-    heading: 'Heading',
-    content: 'Content',
+    heading: {
+      value: 'Heading',
+    },
+    content: {
+      value: 'Content',
+    },
   },
 };

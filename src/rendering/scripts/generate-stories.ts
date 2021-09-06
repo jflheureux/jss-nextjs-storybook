@@ -55,7 +55,7 @@ function walkSync(dir: string, relativepath?: string, filelist?: string[]) {
 
   files.forEach(function (file) {
     if (fs.statSync(dir + file).isDirectory()) {
-      outputFiles = walkSync(dir + file + '/', currentRelativePath + file + '/',  outputFiles);
+      outputFiles = walkSync(dir + file + '/', currentRelativePath + file + '/', outputFiles);
     } else {
       outputFiles.push(currentRelativePath + file);
     }
