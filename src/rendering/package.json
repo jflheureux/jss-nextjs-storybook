@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
+    "@degjs/storybook-decorator-sitecoreprops": "^1.0.4",
     "@graphql-codegen/cli": "^1.19.1",
     "@graphql-codegen/plugin-helpers": "^1.18.1",
     "@graphql-codegen/typed-document-node": "^1.18.4",

@@ -16,11 +16,7 @@ Default.args = {
     name: 'ContentBlock',
   },
   fields: {
-    heading: {
-      value: 'Heading',
-    },
-    content: {
-      value: 'Content',
-    },
+    heading: 'Heading',
+    content: 'Content',
   },
 };
