@@ -1,0 +1,24 @@
+{
+    "namespace": "jss-nextjs-storybook",
+    "references": [ "InitItems" ],
+    "items": {
+        "includes": [
+            {
+                "name": "layouts",
+                "path": "/sitecore/layout/Layouts/Project/jss-nextjs-storybook"
+            },
+            {
+                "name": "placeholders",
+                "path": "/sitecore/layout/Placeholder Settings/Project/jss-nextjs-storybook"
+            },
+            {
+                "name": "renderings",
+                "path": "/sitecore/layout/Renderings/Project/jss-nextjs-storybook"
+            },
+            {
+                "name": "templates",
+                "path": "/sitecore/templates/Project/jss-nextjs-storybook"
+            }
+        ]
+    }
+}

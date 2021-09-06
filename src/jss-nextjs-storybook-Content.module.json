@@ -1,0 +1,16 @@
+{
+    "namespace": "jss-nextjs-storybook-Content",
+    "references": [ "jss-nextjs-storybook" ],
+    "items": {
+        "includes": [
+            {
+                "name": "content",
+                "path": "/sitecore/content/jss-nextjs-storybook"
+            },
+            {
+                "name": "media",
+                "path": "/sitecore/media library/jss-nextjs-storybook"
+            }
+        ]
+    }
+}
