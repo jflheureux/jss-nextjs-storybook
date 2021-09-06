@@ -5,6 +5,23 @@ module.exports = {
   ],
   "addons": [
     "@storybook/addon-links",
-    "@storybook/addon-essentials"
-  ]
+    "@storybook/addon-essentials",
+    {
+      name: '@storybook/preset-create-react-app',
+      options: {
+        craOverrides: {
+          fileLoaderExcludes: ['graphql'],
+        },
+      },
+    },
+  ],
+  webpackFinal: async (config, { configType }) => {
+    config.module.rules.push({
+      test: /\.graphql$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    });
+
+    return config;
+  },
 }
