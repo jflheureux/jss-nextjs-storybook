@@ -95,6 +95,7 @@
     "start:production": "npm-run-all --serial bootstrap next:build next:start",
     "start:watch-components": "ts-node --project tsconfig.scripts.json scripts/generate-component-factory.ts --watch",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "generate-stories": "ts-node --project tsconfig.scripts.json scripts/generate-stories.ts"
   }
 }
