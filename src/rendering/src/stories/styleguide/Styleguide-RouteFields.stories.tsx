@@ -8,11 +8,17 @@ export default {
   component: StyleguideRouteFields,
 } as ComponentMeta<typeof StyleguideRouteFields>;
 
-const Template: ComponentStory<typeof StyleguideRouteFields> = (args) => <StyleguideRouteFields {...args} />;
+const Template: ComponentStory<typeof StyleguideRouteFields> = (args) => (
+  <StyleguideRouteFields {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   params: {
     name: 'Styleguide-RouteFields',
+  },
+  rendering: {
+    uid: '{00000000-0000-0000-0000-000000000000}',
+    componentName: 'Styleguide-RouteFields',
   },
 };

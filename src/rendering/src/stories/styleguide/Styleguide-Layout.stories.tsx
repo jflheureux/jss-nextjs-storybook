@@ -15,4 +15,8 @@ Default.args = {
   params: {
     name: 'Styleguide-Layout',
   },
+  rendering: {
+    uid: '{00000000-0000-0000-0000-000000000000}',
+    componentName: 'Styleguide-Layout',
+  },
 };

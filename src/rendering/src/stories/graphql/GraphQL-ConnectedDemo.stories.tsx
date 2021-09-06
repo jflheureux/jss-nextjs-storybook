@@ -8,11 +8,17 @@ export default {
   component: GraphQLConnectedDemo,
 } as ComponentMeta<typeof GraphQLConnectedDemo>;
 
-const Template: ComponentStory<typeof GraphQLConnectedDemo> = (args) => <GraphQLConnectedDemo {...args} />;
+const Template: ComponentStory<typeof GraphQLConnectedDemo> = (args) => (
+  <GraphQLConnectedDemo {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   params: {
     name: 'GraphQL-ConnectedDemo',
+  },
+  rendering: {
+    uid: '{00000000-0000-0000-0000-000000000000}',
+    componentName: 'GraphQL-ConnectedDemo',
   },
 };

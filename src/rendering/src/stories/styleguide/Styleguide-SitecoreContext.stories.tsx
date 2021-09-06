@@ -8,11 +8,17 @@ export default {
   component: StyleguideSitecoreContext,
 } as ComponentMeta<typeof StyleguideSitecoreContext>;
 
-const Template: ComponentStory<typeof StyleguideSitecoreContext> = (args) => <StyleguideSitecoreContext {...args} />;
+const Template: ComponentStory<typeof StyleguideSitecoreContext> = (args) => (
+  <StyleguideSitecoreContext {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   params: {
     name: 'Styleguide-SitecoreContext',
+  },
+  rendering: {
+    uid: '{00000000-0000-0000-0000-000000000000}',
+    componentName: 'Styleguide-SitecoreContext',
   },
 };

@@ -8,11 +8,17 @@ export default {
   component: StyleguideSpecimen,
 } as ComponentMeta<typeof StyleguideSpecimen>;
 
-const Template: ComponentStory<typeof StyleguideSpecimen> = (args) => <StyleguideSpecimen {...args} />;
+const Template: ComponentStory<typeof StyleguideSpecimen> = (args) => (
+  <StyleguideSpecimen {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   params: {
     name: 'Styleguide-Specimen',
+  },
+  rendering: {
+    uid: '{00000000-0000-0000-0000-000000000000}',
+    componentName: 'Styleguide-Specimen',
   },
 };

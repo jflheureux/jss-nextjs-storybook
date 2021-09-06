@@ -8,11 +8,17 @@ export default {
   component: StyleguideCustomRouteType,
 } as ComponentMeta<typeof StyleguideCustomRouteType>;
 
-const Template: ComponentStory<typeof StyleguideCustomRouteType> = (args) => <StyleguideCustomRouteType {...args} />;
+const Template: ComponentStory<typeof StyleguideCustomRouteType> = (args) => (
+  <StyleguideCustomRouteType {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   params: {
     name: 'Styleguide-CustomRouteType',
+  },
+  rendering: {
+    uid: '{00000000-0000-0000-0000-000000000000}',
+    componentName: 'Styleguide-CustomRouteType',
   },
 };

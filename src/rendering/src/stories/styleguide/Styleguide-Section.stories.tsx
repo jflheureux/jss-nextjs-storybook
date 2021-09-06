@@ -8,11 +8,17 @@ export default {
   component: StyleguideSection,
 } as ComponentMeta<typeof StyleguideSection>;
 
-const Template: ComponentStory<typeof StyleguideSection> = (args) => <StyleguideSection {...args} />;
+const Template: ComponentStory<typeof StyleguideSection> = (args) => (
+  <StyleguideSection {...args} />
+);
 
 export const Default = Template.bind({});
 Default.args = {
   params: {
     name: 'Styleguide-Section',
+  },
+  rendering: {
+    uid: '{00000000-0000-0000-0000-000000000000}',
+    componentName: 'Styleguide-Section',
   },
 };
