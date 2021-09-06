@@ -1,0 +1,33 @@
+﻿---
+ID: "f86b85fd-c5d8-52e7-b2fe-48176ab4b336"
+Parent: "07a8352a-8718-5c42-9b5d-05c9b9364b65"
+Template: "938ec87a-c303-5c09-a936-192c03d8a6cc"
+Path: "/sitecore/content/jss-nextjs-storybook/home/styleguide/Page Components/styleguide-jss-tabs-538E4831-F157-50BB-AC74-277FCAC9FDDB-0-Styleguide-Layout-Tabs-Tab-2"
+Languages:
+- Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: "Styleguide-Layout-Tabs-Tab-2"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210906T013304Z
+    - ID: "5a7f0065-b44c-50c2-b690-f8e008483c99"
+      Hint: content
+      Value: "<p>Tab 2 contents!</p>"
+    - ID: "6919b507-97f2-5e8f-ac69-ad4a511e42e0"
+      Hint: title
+      Value: Tab 2
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "ef6ac9fb-9ba1-4bcc-85c3-2810221a554b"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\JssImport
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210906T013304Z

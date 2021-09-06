@@ -1,0 +1,52 @@
+﻿---
+ID: "a4ecc44c-a79c-5c93-a514-c68cb0485653"
+Parent: "07a8352a-8718-5c42-9b5d-05c9b9364b65"
+Template: "5e1459d0-ec96-5534-adab-019d9be273e4"
+Path: "/sitecore/content/jss-nextjs-storybook/home/styleguide/Page Components/styleguide-jss-styleguide-section-B7985C8DEA10AB2C5CC77ABC90CF4126F21840592E09B2C6DB07D84D314CDCE0D4"
+Languages:
+- Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: "Styleguide-FieldUsage-ContentList-11"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "22ba531a-4c7a-53cd-96c3-260a1b945465"
+      Hint: description
+      Value: |
+        <p>
+          <small>
+            Content Lists are a way to reference zero or more other content items.
+            Referenced items may be shared.
+            To reference a single content item, use an <em>Item Link</em> field.<br />
+            <strong>Note:</strong> Sitecore does not support inline editing of Content List fields. The value must be edited in Experience Editor by using the edit rendering fields button (looks like a pencil) with the whole component selected.
+          </small>
+        </p>
+        
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210906T013304Z
+    - ID: "4826ba33-6e52-5392-82d1-8ae2cf0b347a"
+      Hint: localContentList
+      Value: |
+        {3833B689-FD0D-56D5-98F5-78D21DAF9E86}
+        {079BF64D-EFC4-5DC9-8A45-8A4D4382C3B4}
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "7033e1ff-4ac5-4384-b770-e4250ecabba0"
+    - ID: "ac71f7a2-fd98-5837-b4c4-1c766d531c5a"
+      Hint: heading
+      Value: Content List
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\JssImport
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210906T013304Z
+    - ID: "e551dca3-c801-53b6-afc9-e18686e49055"
+      Hint: sharedContentList
+      Value: |
+        {A84984ED-0538-5155-B2E7-18333D81D13A}
+        {F931229B-D7A0-55D5-B0B6-C2E18D07DC83}

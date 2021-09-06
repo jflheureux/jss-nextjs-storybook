@@ -1,0 +1,49 @@
+﻿---
+ID: "4a417225-d3fa-559d-b0f3-fd9dc37af499"
+Parent: "07a8352a-8718-5c42-9b5d-05c9b9364b65"
+Template: "77a65579-60f4-513b-8c80-6c69719ab1ee"
+Path: "/sitecore/content/jss-nextjs-storybook/home/styleguide/Page Components/styleguide-jss-styleguide-section-B7FCF54E14D2DDEE96747EE3CC441EBE9A4FE9EE7D90F5ABCCDE076F5B72DBDA43"
+Languages:
+- Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: "Styleguide-FieldUsage-Link-9"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "006e89b0-3aaa-5ae8-a212-d701de680a65"
+      Hint: paramsLink
+      Value: |
+        <link target="_blank" text="Sitecore Dev Site" title="&lt;a&gt; title attribute" url="https://dev.sitecore.net" class="font-weight-bold" linktype="external" />
+    - ID: "011db116-488d-54ee-aec9-9e76744004a6"
+      Hint: internalLink
+      Value: |
+        <link linktype="internal" id="{3A7997E7-5171-54CD-9439-3A56DCEED87A}" />
+    - ID: "22ba531a-4c7a-53cd-96c3-260a1b945465"
+      Hint: description
+      Value: <p>A <em>General Link</em> is a field that represents an <code>&lt;a&gt;</code> tag.</p>
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210906T013303Z
+    - ID: "4fdc96bb-2244-53af-baba-3d9ebbe7e62a"
+      Hint: externalLink
+      Value: |
+        <link text="Link to Sitecore" url="https://www.sitecore.com" linktype="external" />
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "4293e93d-be74-457d-84f0-d95c3f1132f0"
+    - ID: "a8e61ff5-7d62-52d9-9d44-09d08a01849b"
+      Hint: emailLink
+      Value: |
+        <link text="Send an Email" url="mailto:foo@bar.com" linktype="mailto" />
+    - ID: "ac71f7a2-fd98-5837-b4c4-1c766d531c5a"
+      Hint: heading
+      Value: General Link
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\JssImport
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210906T013303Z

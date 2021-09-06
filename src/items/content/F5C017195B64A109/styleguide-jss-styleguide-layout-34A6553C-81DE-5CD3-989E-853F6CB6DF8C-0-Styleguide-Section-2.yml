@@ -1,0 +1,30 @@
+﻿---
+ID: "aa5ec49c-9a87-5ce4-a950-ea272ecd43c4"
+Parent: "07a8352a-8718-5c42-9b5d-05c9b9364b65"
+Template: "752a1853-0c89-58d0-a9ee-5fe78fd69075"
+Path: "/sitecore/content/jss-nextjs-storybook/home/styleguide/Page Components/styleguide-jss-styleguide-layout-34A6553C-81DE-5CD3-989E-853F6CB6DF8C-0-Styleguide-Section-2"
+Languages:
+- Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: "Styleguide-Section-2"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210906T013304Z
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "a68e8453-4c65-41f6-9974-0040455c993e"
+    - ID: "a3a3039d-6383-5634-8a3c-388f7bb57382"
+      Hint: heading
+      Value: Layout Patterns
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\JssImport
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210906T013304Z

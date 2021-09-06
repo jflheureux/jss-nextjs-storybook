@@ -1,0 +1,30 @@
+﻿---
+ID: "d7477de5-84b2-5c08-a9e2-774fe7a8f275"
+Parent: "ec97c4e7-2493-58ee-8430-58169b8da7af"
+Template: "7cae2239-1670-5c3c-8eeb-35b7853dfa8a"
+Path: "/sitecore/content/jss-nextjs-storybook/Content/Styleguide/ItemLinkField/Item1"
+Languages:
+- Language: en
+  Fields:
+  - ID: "b5e02ad9-d56f-4c41-a065-a133db87bdeb"
+    Hint: __Display name
+    Value: Styleguide Item Link Item 1 (Shared)
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210906T013300Z
+    - ID: "42cd044a-ec36-505b-a323-dd33148a91c1"
+      Hint: textField
+      Value: ItemLink Demo (Shared) Item 1 Text Field
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "7b0d3b10-c767-4bea-a76e-2d3459ab4dd3"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\JssImport
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210906T013301Z

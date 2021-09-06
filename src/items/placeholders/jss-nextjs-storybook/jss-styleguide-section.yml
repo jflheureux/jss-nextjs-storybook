@@ -1,0 +1,56 @@
+﻿---
+ID: "c9dd76bd-94df-5a91-a29f-1fc84fc0531b"
+Parent: "39e4f277-e795-56c7-9d8d-c693e3c46397"
+Template: "5c547d4e-7111-4995-95b0-6b561751bf2e"
+Path: "/sitecore/layout/Placeholder Settings/Project/jss-nextjs-storybook/jss-styleguide-section"
+SharedFields:
+- ID: "7256bdab-1fd2-49dd-b205-cb4873d2917c"
+  Hint: Placeholder Key
+  Value: "jss-styleguide-section"
+- ID: "e391b526-d0c5-439d-803e-17512eae6222"
+  Hint: Allowed Controls
+  Value: |
+    {81224AC1-545F-5C98-9649-F5C56202B2AB}
+    {FC8CEA89-F50B-5285-955F-6D4F85BF9835}
+    {3099B6A6-DD14-5EF6-9C6D-52718D7DD620}
+    {4608870B-7E0D-5B9A-A2FB-130DB63C703D}
+    {7C487A88-1DDB-5EA0-A978-2686FE4F0D37}
+    {5CAA4D55-CF64-5163-95E2-65BF03F7C880}
+    {153E447B-45E2-5C85-9388-C9F892041F0B}
+    {76708DD7-D971-5172-8176-628D45ADBBED}
+    {D6805332-03B6-536B-9FB7-C14D8464069B}
+    {B12161F1-2863-53FD-B072-DA1A7D71B1BD}
+    {8D6CD754-2AE8-5FE1-8B94-2E8A2C70FB74}
+    {39EAAF01-052D-578B-864D-AF07D7108A62}
+    {EAC2BB78-5BEB-508C-9635-0539B9638EDB}
+    {2C45DB69-8509-5BD6-823A-5AB8F6082970}
+    {6EA2B895-C18A-5F5B-9960-9F50D257E9E4}
+    {5821750A-FF7F-52F4-BC58-F2E3A444F6C7}
+    {556D40C4-11D7-56AE-B931-8A1C8FFAABCB}
+    {0CF281B0-21B9-5231-B267-6030EFEB7DD4}
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210906T013255Z
+    - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
+      Hint: __Owner
+      Value: |
+        sitecore\JssImport
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\JssImport
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "0039e85e-efb2-4a5f-b673-d14d547fb70e"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\JssImport
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210906T013259Z

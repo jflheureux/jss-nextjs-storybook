@@ -1,0 +1,31 @@
+﻿---
+ID: "ca47d88b-b30f-5a16-9df3-ec7a9c021bd9"
+Parent: "73d5545d-d93c-57c7-893e-a075baa99954"
+Template: "73d5545d-d93c-57c7-893e-a075baa99954"
+Path: "/sitecore/templates/Project/jss-nextjs-storybook/GraphQL-IntegratedDemo/__Standard Values"
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210906T013252Z
+    - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
+      Hint: __Owner
+      Value: |
+        sitecore\JssImport
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\JssImport
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "3104705a-a968-46d7-9184-434c20cc6e64"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\JssImport
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210906T013252Z
