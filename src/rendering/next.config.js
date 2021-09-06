@@ -1,9 +1,5 @@
 const jssConfig = require('./src/temp/config');
 const packageConfig = require('./package.json').config;
-const { JSS_MODE_DISCONNECTED } = require('@sitecore-jss/sitecore-jss-nextjs');
-
-const disconnectedServerUrl = `http://localhost:${process.env.PROXY_PORT || 3042}/`;
-const isDisconnected = process.env.JSS_MODE === JSS_MODE_DISCONNECTED;
 
 // A public URL (and uses below) is required for Sitecore Experience Editor support.
 // This is set to http://localhost:3000 by default. See .env for more details.
@@ -32,58 +28,35 @@ const nextConfig = {
   },
 
   async rewrites() {
-    if (isDisconnected) {
-      // When disconnected we proxy to the local faux layout service host, see scripts/disconnected-mode-server.js
-      return [
-        {
-          source: '/sitecore/:path*',
-          destination: `${disconnectedServerUrl}/sitecore/:path*`,
-        },
-        {
-          source: '/:locale/sitecore/:path*',
-          destination: `${disconnectedServerUrl}/sitecore/:path*`,
-        },
-        // media items
-        {
-          source: '/data/media/:path*',
-          destination: `${disconnectedServerUrl}/data/media/:path*`,
-        },
-        {
-          source: '/:locale/data/media/:path*',
-          destination: `${disconnectedServerUrl}/data/media/:path*`,
-        },
-      ];
-    } else {
-      // When in connected mode we want to proxy Sitecore paths off to Sitecore
-      return [
-        {
-          source: '/sitecore/:path*',
-          destination: `${jssConfig.sitecoreApiHost}/sitecore/:path*`,
-        },
-        {
-          source: '/:locale/sitecore/:path*',
-          destination: `${jssConfig.sitecoreApiHost}/sitecore/:path*`,
-        },
-        // media items
-        {
-          source: '/-/:path*',
-          destination: `${jssConfig.sitecoreApiHost}/-/:path*`,
-        },
-        {
-          source: '/:locale/-/:path*',
-          destination: `${jssConfig.sitecoreApiHost}/-/:path*`,
-        },
-        // visitor identification
-        {
-          source: '/layouts/:path*',
-          destination: `${jssConfig.sitecoreApiHost}/layouts/:path*`,
-        },
-        {
-          source: '/:locale/layouts/:path*',
-          destination: `${jssConfig.sitecoreApiHost}/layouts/:path*`,
-        },
-      ];
-    }
+    // When in connected mode we want to proxy Sitecore paths off to Sitecore
+    return [
+      {
+        source: '/sitecore/:path*',
+        destination: `${jssConfig.sitecoreApiHost}/sitecore/:path*`,
+      },
+      {
+        source: '/:locale/sitecore/:path*',
+        destination: `${jssConfig.sitecoreApiHost}/sitecore/:path*`,
+      },
+      // media items
+      {
+        source: '/-/:path*',
+        destination: `${jssConfig.sitecoreApiHost}/-/:path*`,
+      },
+      {
+        source: '/:locale/-/:path*',
+        destination: `${jssConfig.sitecoreApiHost}/-/:path*`,
+      },
+      // visitor identification
+      {
+        source: '/layouts/:path*',
+        destination: `${jssConfig.sitecoreApiHost}/layouts/:path*`,
+      },
+      {
+        source: '/:locale/layouts/:path*',
+        destination: `${jssConfig.sitecoreApiHost}/layouts/:path*`,
+      },
+    ];
   },
   
   webpack: (config, options) => {
