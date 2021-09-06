@@ -15,4 +15,12 @@ Default.args = {
   params: {
     name: 'ContentBlock',
   },
+  fields: {
+    heading: {
+      value: 'Heading',
+    },
+    content: {
+      value: 'Content',
+    },
+  },
 };
