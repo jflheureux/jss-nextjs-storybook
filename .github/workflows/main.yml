@@ -34,7 +34,7 @@ jobs:
           # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm
           cache: npm
           # Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. Supports wildcards or a list of file names for caching multiple dependencies.
-          cache-dependency-path: $GITHUB_WORKSPACE/src/rendering/package-lock.json
+          # cache-dependency-path: $GITHUB_WORKSPACE/src/rendering/package-lock.json
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
