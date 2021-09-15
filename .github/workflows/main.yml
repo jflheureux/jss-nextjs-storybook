@@ -44,7 +44,7 @@ jobs:
           # Your chromatic project token
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           # Working directory for the package.json file
-          workingDir: $GITHUB_WORKSPACE/src/rendering
+          workingDir: src/rendering
           # Skip Chromatic tests, but mark the commit as passing
           # skip: # optional
           # Only run stories affected by files changed since the baseline build
