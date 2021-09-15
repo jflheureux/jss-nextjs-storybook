@@ -1,0 +1,63 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "chromatic"
+  chromatic:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Setup Node.js
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.4.0
+        with:
+          # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
+          node-version: 14.17.0
+          # Used to specify a package manager for caching in the default directory. Supported values: npm, yarn, pnpm
+          cache: npm
+          # Used to specify the path to a dependency file: package-lock.json, yarn.lock, etc. Supports wildcards or a list of file names for caching multiple dependencies.
+          cache-dependency-path: $GITHUB_WORKSPACE/src/rendering/package-lock.json
+
+      - name: Publish to Chromatic
+        uses: chromaui/action@v1
+        with:
+          # Your github token
+          token: ${{ secrets.GITHUB_TOKEN }}
+          # Your chromatic project token
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Working directory for the package.json file
+          workingDir: $GITHUB_WORKSPACE/src/rendering
+          # Skip Chromatic tests, but mark the commit as passing
+          # skip: # optional
+          # Only run stories affected by files changed since the baseline build
+          # onlyChanged: # optional
+          # Pass the baselines forward and treat all missing stories as “preserved” without re-capturing them
+          # preserveMissing: # optional
+          # Automatically accept all changes in chromatic: boolean or branchname
+          # autoAcceptChanges: # optional
+          # Do not exit when runtime errors occur in storybook
+          # allowConsoleErrors: # optional
+          # Positive exit of action even when there are changes: boolean or branchname
+          # exitZeroOnChanges: # optional
+          # Exit with 0 once the built version has been sent to chromatic: boolean or branchname
+          # exitOnceUploaded: # optional
+          # Do not use the last build on this branch as a baseline if it is no longer in history (i.e. branch was rebased)
+          # ignoreLastBuildOnBranch: # optional
