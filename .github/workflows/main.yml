@@ -43,6 +43,11 @@ jobs:
           cd src/rendering
           npm install
 
+      - name: Bootstrap JSS app
+        run: |
+          cd src/rendering
+          npm run bootstrap
+
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
