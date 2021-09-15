@@ -39,7 +39,9 @@ jobs:
           cache-dependency-path: /home/runner/work/jss-nextjs-storybook/jss-nextjs-storybook/src/rendering/package-lock.json
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          cd src/rendering
+          npm install
 
       - name: Publish to Chromatic
         uses: chromaui/action@v1
