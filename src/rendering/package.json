@@ -67,6 +67,7 @@
     "babel-loader": "^8.2.2",
     "chalk": "~2.4.2",
     "chokidar": "~3.1.1",
+    "chromatic": "^5.9.2",
     "constant-case": "^3.0.4",
     "cross-env": "~6.0.3",
     "eslint": "^7.13.0",
@@ -96,6 +97,7 @@
     "start:watch-components": "ts-node --project tsconfig.scripts.json scripts/generate-component-factory.ts --watch",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "generate-stories": "ts-node --project tsconfig.scripts.json scripts/generate-stories.ts"
+    "generate-stories": "ts-node --project tsconfig.scripts.json scripts/generate-stories.ts",
+    "chromatic": "chromatic --exit-zero-on-changes"
   }
 }
