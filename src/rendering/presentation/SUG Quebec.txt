@@ -1,0 +1,96 @@
+- Disconnected mode : Problèmes et limitations
+	- Certains types de champs ne sont pas supportés
+	- Ne peut pas renommer/déplacer les items créés par l'import de JSS
+	- Duplication des items de datasource
+		- Screenshot disconnected data
+		- Screenshot Page Components
+	- Mélange des items de datasource lorsqu'un composant est ajouté entre 2 composants dans le YML
+
+
+
+
+- Connected mode : Problèmes et limitations
+	- Développeurs Front-end ont maintenant besoin d'une instance Sitecore pour développer et tester leurs composants:
+		- Définir les templates pour les datasources
+		- Créer leurs items de datasource
+		- Ajouter leurs composants à des pages dans l'EE et attacher la datasource
+	- Force à utiliser Windows, avec ou sans Docker.
+
+
+
+
+
+- Storybook
+
+- Chromatic
+	- Validation PR
+	- Auto-accept
+
+- Survol de mon projet
+	- JSS 18, Nextjs, Docker
+	- dossiers: items, rendering
+
+- Ajouter Storybook
+	- cd .\src\rendering\
+	- npx sb init
+	- Résultat
+
+- Composition d'une story
+	- Import
+		- Storybook
+		- composant
+	- Template
+		- Rendering
+	- export
+		- default
+			- title
+			- component
+		- Variantes
+			- Default
+				- args (props)
+
+- Ajouter une variante
+
+- Générer une story pour chaque nouveau composant
+	- jss scaffold
+
+- Générer une story pour tous les composants existant
+	- jss generate-stories
+
+- Faire attention aux imports dans les composants
+	- Pas de path absolus
+	- Toujours des paths relatifs par rapport au fichier actuel
+
+- Support de GraphQL
+
+- @degjs/storybook-decorator-sitecoreprops
+	- https://github.com/DEGJS/storybook-decorator-sitecoreprops
+	- Utile en JS
+	- Créé des erreurs de type en TypeScript
+
+- Ajouter le CSS
+	- preview.js
+
+- Ajouter des polices
+	- preview-head.html
+	- <link
+			href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			rel="stylesheet"
+		/>
+
+- Ajouter Chromatic
+	- npm install --save-dev chromatic
+
+- Uploader le storybook de base sur Chromatic
+	- npx chromatic --project-token=1b6a5e0f9931
+	- npx chromatic --project-token=1b6a5e0f9931 --allow-console-errors
+
+- Intégrer Chromatic à GitHub actions
+	- chromatic package.json script
+	- Secret
+	- Workflow
+	- Branch protection rule
+	- PR
+
+- Hristo Bakalov's SUGCON work
+	- https://github.com/hristobakalov/Storybook-SUGCON

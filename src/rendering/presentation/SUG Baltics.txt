@@ -1,0 +1,116 @@
+Sitecore JSS Development Workflow with Storybook
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+
+- Disconnected mode : Problems and limitations
+	- Some field types are not supported
+	- Cannot rename/move the JSS imported items
+	- Datasource item duplication
+		- Show disconnected data Screenshot
+		- Show page components screenshot
+	- Datasource items becomes mixed-up when a component is added between existing components in fake data YML files
+
+- Connected mode : Problems and limitations
+	- Front-end developers must have a Sitecore instance to develop and test their components:
+		- Define datasource templates
+		- Create datasource items
+		- Add their components to pages in Experience Editor/Horizon and attach datasources
+	- Forces front-end developers to use Windows, with or without Docker
+
+- Storybook
+
+- Chromatic
+	- PR Validation
+	- Auto-accept
+
+- Desired Workflow
+	- Front-end developers
+		- Run Storybook
+		- Use "jss scaffold" to create components
+		- Use Storybook to see the components and simulate edge cases while developing them
+		- Create PR
+	- Reviewers
+		- Use Chromatic to see and approve component changes
+	- Back-end developers (in Sitecore)
+		- Create datasource template items
+		- Create JSON rendering items
+	- Page Editors
+		- Create datasource items
+		- Add components to pages and bind datasources
+
+- Integration
+	- Project overview
+		- JSS 18, Next.js, Docker
+		- dotnet new sitecore.nextjs.gettingstarted -n jss-nextjs-storybook --JSSCreateParams "--fetchWith GraphQL --prerender SSG"
+		- folders: items, rendering
+		- Disconnected mode removal commits
+
+	- Add Storybook
+		- cd .\src\rendering\
+		- npx sb init
+		- Result (commit diff)
+
+	- Run Storybook
+		- npm run storybook
+		- jss storybook
+
+	- Storybook story composition
+		- Import
+			- Storybook
+			- component
+		- Template
+			- Rendering
+		- export
+			- default
+				- title
+				- component
+			- Variants
+				- Default
+					- args (props)
+
+	- Add a variant
+
+	- Generate a story for each new component
+		- jss scaffold
+
+	- Generate a story for all existing components
+		- jss generate-stories
+
+	- Pay attention to import statements in components
+		- No absolute paths
+		- Always paths relative to the current file
+
+	- GraphQL support
+
+	- @degjs/storybook-decorator-sitecoreprops
+		- https://github.com/DEGJS/storybook-decorator-sitecoreprops
+		- Useful for JS projects
+		- Causes errors with TypeScript
+
+	- Add CSS
+		- preview.js
+
+	- Add fonts
+		- preview-head.html
+		- <link
+				href="https://fonts.googleapis.com/css2?family=Saira:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+				rel="stylesheet"
+			/>
+
+	- Add Chromatic
+		- Chromatic website wizard
+		- npm install --save-dev chromatic
+
+	- Upload reference Storybook to Chromatic
+		- npx chromatic --project-token=1b6a5e0f9931
+		- npx chromatic --project-token=1b6a5e0f9931 --allow-console-errors
+
+	- Integrate Chromatic to GitHub actions
+		- chromatic package.json script
+		- Settings > Secret
+		- Actions > Workflow
+		- Settings > Branches > Branch protection rules
+		- Pull Request
+
+- Additional Resources
+	- Hristo Bakalov's SUGCON work
+		- https://github.com/hristobakalov/Storybook-SUGCON
