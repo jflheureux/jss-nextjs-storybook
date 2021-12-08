@@ -54,7 +54,7 @@ const storyFilename = `${componentName}.stories.tsx`;
 
 const storyOutputPath = scaffoldFile(
   storyRootPath,
-  generateStorySrc(componentName, componentPath),
+  generateStorySrc(componentName, componentName, componentPath),
   storyFilename
 );
 
