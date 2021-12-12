@@ -22,9 +22,9 @@ on:
         - default
         - process
       HOST_LICENSE_FOLDER:
-        description: 'Path to your Sitecore license'     
+        description: 'Path to your Sitecore license folder'     
         required: true
-        default: 'C:\license\license.xml'       
+        default: 'C:\license'       
       SQL_SA_PASSWORD: 
         description: 'Password to SQL'
         required: true
@@ -51,26 +51,360 @@ on:
         type: boolean 
         description: 'Push sitecore items'
         default: true
-        
-    
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
+
 jobs:
-  test-run:
-    name: Test run  
+  init-and-run-docker:
+      name: Setup and run docker  
       
-    runs-on: magical
+      runs-on: magical
+      env:
+          # If you intend to push to a private registry, fill that in here.
+          REGISTRY : ${{ github.event.inputs.REGISTRY }}
+          COMPOSE_PROJECT_NAME : jss_nextjs_storybook
+          
+          # Configure host names, which will be used to configure Traefik proxy routing.
+          CM_HOST : cm.jss_nextjs_storybook.localhost
+          ID_HOST : id.jss_nextjs_storybook.localhost
+          RENDERING_HOST : www.jss_nextjs_storybook.localhost
+
+          # Sitecore Docker registry and platform version.
+          # The ltsc2019-based images are used by default here. Development-only 1909 images are also available.
+          SITECORE_DOCKER_REGISTRY: scr.sitecore.com/sxp/
+          SITECORE_VERSION : ${{ github.event.inputs.SITECORE_VERSION }}
+
+          # Other supporting images, including Sitecore modules and Docker tools
+          MANAGEMENT_SERVICES_IMAGE: scr.sitecore.com/sxp/modules/sitecore-management-services-xp1-assets:3.0.0-1809
+          HEADLESS_SERVICES_IMAGE: scr.sitecore.com/sxp/modules/sitecore-headless-services-xp1-assets:18.0.0-1809
+          TOOLS_IMAGE: scr.sitecore.com/tools/sitecore-docker-tools-assets:10.1.0-1809
+          TRAEFIK_IMAGE: traefik:v2.2.0-windowsservercore-1809
+
+          # Windows and Node.js version for JSS
+          NODEJS_PARENT_IMAGE: mcr.microsoft.com/windows/nanoserver:1809
+          NODEJS_VERSION: 14.15.3
+
+          # MSBuild configuration and the target build stage for the Rendering Host image.
+          BUILD_CONFIGURATION : ${{ github.event.inputs.BUILD_CONFIGURATION }}
+
+          # Prefix for Solr cores used with Sitecore Content Search
+          SOLR_CORE_PREFIX_NAME: sitecore
+
+          # JSS deployment secret, should also be in the scjssconfig.json
+          JSS_jss_nextjs_storybook_DEPLOYMENT_SECRET: 77f85bb537ef41c3ae21b9f49daabadd
+
+          # JSS editing secret, should be provided to CM and the Next.js Rendering Host
+          JSS_EDITING_SECRET: T6DRBabtDxKF9bYKjHMFeMt11PBHMOC2aMtMW85Rkcd2copyvvY1mbqJc30URssz
+
+          # Mount paths for code deployment, data persistence, and your Sitecore license.
+          LOCAL_DEPLOY_PATH: .\docker\deploy\
+          LOCAL_DATA_PATH: .\docker\data\
+          HOST_LICENSE_FOLDER: ${{ github.event.inputs.HOST_LICENSE_FOLDER }}
+
+          # Because we are using a mounted license file, this value can be empty.
+          # Included here to suppress 'variable is not set' warning from docker-compose.
+          SITECORE_LICENSE: ""
+
+          # The isolation mode for Sitecore containers.
+          # Compatibility of isolation mode depends on the Host and Container OS versions.
+          TRAEFIK_ISOLATION : hyperv
+          SOLR_ISOLATION : ${{ github.event.inputs.SOLR_ISOLATION }}
+          ISOLATION : ${{ github.event.inputs.ISOLATION }}
+
+          # Generated keys and certificates for your environment.
+          REPORTING_API_KEY: d7DQUm4t9siJ4z8saQp0MF1qp8M45DZnm7J8e7zqpjomyI8hhvQgxtDMdgKnZcT1ud5cnpMf7DqiwbZx10NJsfRHq8qxaJECirWzc2vXDoHESGiAtm5xQXhSiBJTgrs4
+          SITECORE_IDSECRET: gTwkgs9F450qhxpod3Godxzefok8y1r5K42k3fsofkfZZKCrfpRjL7nkAWQfaeUM
+          TELERIK_ENCRYPTION_KEY: PNX&m9>w;{xv<OV48o4k4<Gzz6$ZVn?o;U%69a%IV@ddJ|N0Pe{8P@=s(R+M$1-aBpJ+k3Ue\vS4Xrkqj/{7aHyNU({_1Z&#~m+\7{yj^Kn4bA4jZ1tUmm$;]Jx|L)Yl
+          SITECORE_ID_CERTIFICATE: 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
+          SITECORE_ID_CERTIFICATE_PASSWORD: w6H3nDqw
+          MEDIA_REQUEST_PROTECTION_SHARED_SECRET: aYF/6o>6?sN$t#5@Ydz`}C|ShO)S3>MZC(g#AYvcxCK^OI$mceq+%-A@(&U`%CPn
+
+          # Set auto login secret
+          ID_CLI_SECRET: ${{ github.event.inputs.ID_CLI_SECRET }}
+       
+      steps:
+      - name: Encoding utf8
+        shell: powershell
+        run: echo "mypath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          clean: false
+      - name: Init Sitecore 
+        shell: powershell
+        run: | 
+          Import-Module PowerShellGet
+          $SitecoreGallery = Get-PSRepository | Where-Object { $_.SourceLocation -eq "https://sitecore.myget.org/F/sc-powershell/api/v2" }
+          if (-not $SitecoreGallery) {
+              Write-Host "Adding Sitecore PowerShell Gallery..." -ForegroundColor Green 
+              Register-PSRepository -Name SitecoreGallery -SourceLocation https://sitecore.myget.org/F/sc-powershell/api/v2 -InstallationPolicy Trusted
+              $SitecoreGallery = Get-PSRepository -Name SitecoreGallery
+          }
+          # Install and Import SitecoreDockerTools 
+          $dockerToolsVersion = "10.1.4"
+          Remove-Module SitecoreDockerTools -ErrorAction SilentlyContinue
+          if (-not (Get-InstalledModule -Name SitecoreDockerTools -RequiredVersion $dockerToolsVersion -ErrorAction SilentlyContinue)) {
+              Write-Host "Installing SitecoreDockerTools..." -ForegroundColor Green
+              Install-Module SitecoreDockerTools -RequiredVersion $dockerToolsVersion -Scope CurrentUser -Repository $SitecoreGallery.Name
+          }
+          Write-Host "Importing SitecoreDockerTools..." -ForegroundColor Green
+          Import-Module SitecoreDockerTools -RequiredVersion $dockerToolsVersion
+          Write-SitecoreDockerWelcome
+
+          # $Base64License = ConvertTo-CompressedBase64String -Path ${{ github.event.inputs.SITECORE_LICENSE_PATH }}
+          # echo "SITECORE_LICENSE=$Base64License" >> $env:GITHUB_ENV
+
+      - name: Setup TLS certs
+        shell: powershell
+        run: | 
+          Push-Location docker\traefik\certs
+          try {
+              $mkcert = ".\mkcert.exe"
+              if ($null -ne (Get-Command mkcert.exe -ErrorAction SilentlyContinue)) {
+                  # mkcert installed in PATH
+                  $mkcert = "mkcert"
+              } elseif (-not (Test-Path $mkcert)) {
+                  Write-Host "Downloading and installing mkcert certificate tool..." -ForegroundColor Green 
+                  Invoke-WebRequest "https://github.com/FiloSottile/mkcert/releases/download/v1.4.1/mkcert-v1.4.1-windows-amd64.exe" -UseBasicParsing -OutFile mkcert.exe
+                  if ((Get-FileHash mkcert.exe).Hash -ne "1BE92F598145F61CA67DD9F5C687DFEC17953548D013715FF54067B34D7C3246") {
+                      Remove-Item mkcert.exe -Force
+                      throw "Invalid mkcert.exe file"
+                  }
+              }
+              Write-Host "Generating Traefik TLS certificate..." -ForegroundColor Green
+              & $mkcert -install
+              & $mkcert -cert-file cm.jss_nextjs_storybook.localhost.crt -key-file "cm.jss_nextjs_storybook.localhost.key" "cm.jss_nextjs_storybook.localhost"
+              & $mkcert -cert-file www.jss_nextjs_storybook.localhost.crt -key-file "www.jss_nextjs_storybook.localhost.key" "www.jss_nextjs_storybook.localhost"
+              & $mkcert -cert-file id.jss_nextjs_storybook.localhost.crt -key-file "id.jss_nextjs_storybook.localhost.key" "id.jss_nextjs_storybook.localhost"
+              & $mkcert "*.jss_nextjs_storybook.localhost"
+              & $mkcert -key-file key.pem -cert-file cert.pem "*.jss_nextjs_storybook.localhost"
+              & certutil -addstore -enterprise -f "Root" cert.pem
+
+              # stash CAROOT path for messaging at the end of the script
+              $caRoot = "$(& $mkcert -CAROOT)\rootCA.pem"
+
+              Write-Host
+              Write-Host ("#"*75) -ForegroundColor Cyan
+              Write-Host "To avoid HTTPS errors, set the NODE_EXTRA_CA_CERTS environment variable" -ForegroundColor Cyan
+              Write-Host "using the following commmand:" -ForegroundColor Cyan
+              Write-Host "setx NODE_EXTRA_CA_CERTS $caRoot"
+              Write-Host
+              Write-Host "You will need to restart your terminal or VS Code for it to take effect." -ForegroundColor Cyan
+              Write-Host ("#"*75) -ForegroundColor Cyan
+
+          }
+          catch {
+              Write-Error "An error occurred while attempting to generate TLS certificate: $_"
+          }
+          finally {
+              Pop-Location
+          }
+
+          ################################
+          # Add Windows hosts file entries
+          ################################
+
+          Write-Host "Adding Windows hosts file entries..." -ForegroundColor Green
+
+          Add-HostsEntry "cm.jss_nextjs_storybook.localhost"
+          Add-HostsEntry "cd.jss_nextjs_storybook.localhost"
+          Add-HostsEntry "id.jss_nextjs_storybook.localhost"
+          Add-HostsEntry "www.jss_nextjs_storybook.localhost"
+
+          Write-Host "Done!" -ForegroundColor Green
     
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - name: Populate Env file
+        shell: powershell
+        run: | 
+          $reportKey=Get-SitecoreRandomString 128 -DisallowSpecial
+          echo "REPORTING_API_KEY=$reportKey" >> $env:GITHUB_ENV
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+          $telerikKey=Get-SitecoreRandomString 128
+          echo "TELERIK_ENCRYPTION_KEY=$telerikKey" >> $env:GITHUB_ENV
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          $mediaKey=Get-SitecoreRandomString 64
+          echo "MEDIA_REQUEST_PROTECTION_SHARED_SECRET=$mediaKey" >> $env:GITHUB_ENV
+
+          $sitecoreIdSecret=Get-SitecoreRandomString 64 -DisallowSpecial
+          echo "SITECORE_IDSECRET=$sitecoreIdSecret" >> $env:GITHUB_ENV
+
+          $idCertPassword = Get-SitecoreRandomString 8 -DisallowSpecial
+          $idCertificate = Get-SitecoreCertificateAsBase64String -DnsName "localhost" -Password (ConvertTo-SecureString -String $idCertPassword -Force -AsPlainText)
+          echo "SITECORE_ID_CERTIFICATE=$idCertificate" >> $env:GITHUB_ENV
+          echo "SITECORE_ID_CERTIFICATE_PASSWORD=$idCertPassword" >> $env:GITHUB_ENV
+
+
+          # SQL_SA_PASSWORD
+          echo "SQL_SA_PASSWORD=${{ github.event.inputs.SQL_SA_PASSWORD }}" >> $env:GITHUB_ENV
+         
+          # SITECORE_ADMIN_PASSWORD
+          echo "SITECORE_ADMIN_PASSWORD=${{ github.event.inputs.SITECORE_ADMIN_PASSWORD }}" >> $env:GITHUB_ENV
+          
+          # JSS_EDITING_SECRET
+          $jssEditingSecret = Get-SitecoreRandomString 64 -DisallowSpecial
+          echo "JSS_EDITING_SECRET=$jssEditingSecret" >> $env:GITHUB_ENV
+         
+          # Populate it for the Next.js local environment as well
+          Set-EnvFileVariable "JSS_EDITING_SECRET" -Value $jssEditingSecret -Path .\src\rendering\.env
+         
+          Write-Host "Done!" -ForegroundColor Green
+
+      - name: Run dockers
+        shell: powershell 
+        run: | 
+          docker-compose build
+          if ($LASTEXITCODE -ne 0) {
+              Write-Error "Container build failed, see errors above."
+          }
+          docker-compose up -d
+
+  populate-solr-schema:
+      needs: init-and-run-docker
+      name: Populate solr
+      runs-on: magical  
+      steps:
+      - name: Populate solr schema
+        shell: powershell
+        run: | 
+          $ShouldPopulateSolr="${{ github.event.inputs.POPULATE_SOLR_SCHEMA }}"
+          if ($ShouldPopulateSolr -eq "true") {
+            $ErrorActionPreference = "Stop";
+            # Wait for Traefik to expose CM route
+            Write-Host "Waiting for CM to become available..." -ForegroundColor Green
+            $startTime = Get-Date
+            do {
+                Start-Sleep -Milliseconds 100
+                try {
+                    $status = Invoke-RestMethod "http://localhost:8079/api/http/routers/cm-secure@docker"
+                } catch {
+                    # Could throw if it took to long, let's keep this one under loop
+                    #if ($_.Exception.Response.StatusCode.value__ -ne "404") {
+                    #    throw
+                    #}
+                }
+            } while ($status.status -ne "enabled" -and $startTime.AddSeconds(15) -gt (Get-Date))
+            if (-not $status.status -eq "enabled") {
+                $status
+                Write-Error "Timeout waiting for Sitecore CM to become available via Traefik proxy. Check CM container logs, if no errors. Then it's Traekik that has not come up yet"
+            }
+
+            # Setup Sitecore ClI tool
+            Write-Host "Setup Sitecore CLI..." -ForegroundColor Green
+            dotnet new tool-manifest
+            dotnet tool install --add-source https://sitecore.myget.org/F/sc-packages/api/v3/index.json --version 3.0.0 sitecore.cli
+
+            # Login and get access to push serliazed items
+            Write-Host "Login and get access to push serliazed items..." -ForegroundColor Green
+            #dotnet sitecore login --cm https://cm.hedin.localhost/ --auth https://id.hedin.localhost/ --allow-write true
+            dotnet sitecore login --client-credentials true --auth https://id.jss_nextjs_storybook.localhost/ --cm https://cm.jss_nextjs_storybook.localhost/ --allow-write true --client-id "JSS_LOGIN_Automation" --client-secret ${{ github.event.inputs.ID_CLI_SECRET }}
+            if ($LASTEXITCODE -ne 0) {
+                Write-Error "Unable to log into Sitecore, did the Sitecore environment start correctly? See logs above."
+            }
+
+            # Setup Sitecore ClI tool
+            Write-Host "Setup Sitecore CLI..." -ForegroundColor Green
+            dotnet new tool-manifest
+            dotnet tool install --add-source https://sitecore.myget.org/F/sc-packages/api/v3/index.json --version 3.0.0 sitecore.cli
+
+            # Populate Solr managed schemas to avoid errors during item deploy
+            Write-Host "Populating Solr managed schema..." -ForegroundColor Green
+            $token = (Get-Content .\.sitecore\user.json | ConvertFrom-Json).endpoints.default.accessToken
+            Invoke-RestMethod "https://cm.jss_nextjs_storybook.localhost/sitecore/admin/PopulateManagedSchema.aspx?indexes=all" -Headers @{Authorization = "Bearer $token"} -UseBasicParsing | Out-Null
+          }  
+
+  push-items:
+      needs: populate-solr-schema
+      name: Push Sitecore Items
+      runs-on: magical  
+      steps:
+      - name: Push Sitecore items
+        shell: powershell
+        run: | 
+          $ShouldPush="${{ github.event.inputs.PUSH_SITECORE_ITEMS }}"
+          if ($ShouldPush -eq "true") {
+            $ErrorActionPreference = "Stop";
+            # Wait for Traefik to expose CM route
+            Write-Host "Waiting for CM to become available..." -ForegroundColor Green
+            $startTime = Get-Date
+            do {
+                Start-Sleep -Milliseconds 100
+                try {
+                    $status = Invoke-RestMethod "http://localhost:8079/api/http/routers/cm-secure@docker"
+                } catch {
+                    # Could throw if it took to long, let's keep this one under loop
+                    #if ($_.Exception.Response.StatusCode.value__ -ne "404") {
+                    #    throw
+                    #}
+                }
+            } while ($status.status -ne "enabled" -and $startTime.AddSeconds(15) -gt (Get-Date))
+            if (-not $status.status -eq "enabled") {
+                $status
+                Write-Error "Timeout waiting for Sitecore CM to become available via Traefik proxy. Check CM container logs, if no errors. Then it's Traekik that has not come up yet"
+            }
+
+            # Setup Sitecore ClI tool
+            Write-Host "Setup Sitecore CLI..." -ForegroundColor Green
+            dotnet new tool-manifest
+            dotnet tool install --add-source https://sitecore.myget.org/F/sc-packages/api/v3/index.json --version 3.0.0 sitecore.cli
+
+            # Login and get access to push serliazed items
+            Write-Host "Login and get access to push serliazed items..." -ForegroundColor Green
+            #dotnet sitecore login --cm https://cm.hedin.localhost/ --auth https://id.hedin.localhost/ --allow-write true
+            dotnet sitecore login --client-credentials true --auth https://id.jss_nextjs_storybook.localhost/ --cm https://cm.jss_nextjs_storybook.localhost/ --allow-write true --client-id "JSS_LOGIN_Automation" --client-secret ${{ github.event.inputs.ID_CLI_SECRET }}
+            if ($LASTEXITCODE -ne 0) {
+                Write-Error "Unable to log into Sitecore, did the Sitecore environment start correctly? See logs above."
+            }
+
+            ##
+            ## This script will sync the JSS sample site on first run, and then serialize it.
+            ## Subsequent executions will only push the serialized site. You may wish to remove /
+            ## simplify this logic if using this starter for your own development.
+            ##
+
+            # JSS sample has already been deployed and serialized, push the serialized items
+            if (Test-Path .\src\items\content) {
+
+                Write-Host "Pushing items to Sitecore..." -ForegroundColor Green
+                dotnet sitecore ser push --publish
+                if ($LASTEXITCODE -ne 0) {
+                    Write-Error "Serialization push failed, see errors above."
+                }
+
+            # JSS sample has not been deployed yet. Use its deployment process to initialize.
+            } else {
+
+                # Some items are needed for JSS to be able to deploy.
+                Write-Host "Pushing init items to Sitecore..." -ForegroundColor Green
+                dotnet sitecore ser push --include InitItems
+                if ($LASTEXITCODE -ne 0) {
+                    Write-Error "Serialization push failed, see errors above."
+                }
+
+                Write-Host "Deploying JSS application..." -ForegroundColor Green
+                Push-Location src\rendering
+                try {
+                    jss deploy items -c -d
+                } finally {
+                    Pop-Location
+                }
+                if ($LASTEXITCODE -ne 0) {
+                    Write-Error "JSS deploy failed, see errors above."
+                }
+                dotnet sitecore publish
+                if ($LASTEXITCODE -ne 0) {
+                    Write-Error "Item publish failed, see errors above."
+                }
+
+                Write-Host "Pulling JSS deployed items..." -ForegroundColor Green
+                dotnet sitecore ser pull
+            }
+
+            Write-Host "Opening site..." -ForegroundColor Green
+
+            Start-Process https://cm.jss_nextjs_storybook.localhost/sitecore/
+            Start-Process https://www.jss_nextjs_storybook.localhost/
+
+            Write-Host ""
+            Write-Host "Use the following command to monitor your Rendering Host:" -ForegroundColor Green
+            Write-Host "docker-compose logs -f rendering"
+            Write-Host ""
+          }  

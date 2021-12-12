@@ -71,6 +71,7 @@ services:
       Sitecore_Sitecore__IdentityServer__PublicOrigin: https://${ID_HOST}
       Sitecore_Sitecore__IdentityServer__CertificateRawDataPassword: ${SITECORE_ID_CERTIFICATE_PASSWORD}
       Sitecore_License: ${SITECORE_LICENSE}
+      Sitecore_Sitecore__IdentityServer__Clients__CliServerClient__ClientSecrets__ClientSecret1: ${ID_CLI_SECRET}
     healthcheck:
       test: ["CMD", "powershell", "-command", "C:/Healthchecks/Healthcheck.ps1"]
       timeout: 300s
