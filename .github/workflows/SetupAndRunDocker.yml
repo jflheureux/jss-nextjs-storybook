@@ -1,0 +1,53 @@
+name: MAGICAL - Setup and run Docker locally
+
+on:
+  workflow_dispatch:
+    inputs:
+      REGISTRY:
+        description: 'Registry name'     
+        required: false
+        default: ''
+      SITECORE_VERSION: 
+        type: choice 
+        description: 'Select sitecore windows version'
+        options:
+        - 10.1-ltsc2019
+        - 10.1-2009
+        - 10.2-ltsc2019
+        - 10.2-2009  
+      ISOLATION:
+        type: choice 
+        description: 'Select isolation type'
+        options:
+        - default
+        - process
+      HOST_LICENSE_FOLDER:
+        description: 'Path to your Sitecore license'     
+        required: true
+        default: 'C:\license\license.xml'       
+      SQL_SA_PASSWORD: 
+        description: 'Password to SQL'
+        required: true
+        default: 'DsB4j9MB8Ah15OkCLPp'   
+      SITECORE_ADMIN_PASSWORD: 
+        description: 'Password to Sitecore admin'
+        required: true
+        default: 'b'
+      ID_CLI_SECRET: 
+        description: 'Secret for auto login to CM'
+        required: true
+        default: 'secret_hush_hush'  
+      BUILD_CONFIGURATION: 
+        type: choice 
+        description: 'Debug or release'
+        options:
+        - debug
+        - release
+      POPULATE_SOLR_SCHEMA:
+        type: boolean 
+        description: 'Populate solr schema'
+        default: true  
+      PUSH_SITECORE_ITEMS:
+        type: boolean 
+        description: 'Push sitecore items'
+        default: true
